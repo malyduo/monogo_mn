@@ -1,0 +1,32 @@
+version: '3'
+services:
+  httpd:
+    build: ./httpd
+    container_name: mn-httpd
+    volumes:
+      - ./config/envvars:/etc/apache2/envvars
+      - ./config/00-custom.ini:/usr/local/etc/php/conf.d/00-custom.ini
+      - ./www:/var/www/html
+    ports:
+      - 80:80
+  db:
+    image: mariadb:10.4.3
+    container_name: mn-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./database:/var/lib/mysql 
+      - ./backup:/backup
+    ports:
+      - 3306:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: mn-pma
+    environment:
+     - PMA_HOST=db
+     - PMA_PORT=3306
+     - PMA_ARBITRARY=0
+    ports:
+      - 8443:80
+    depends_on:
+     - db

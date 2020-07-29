@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @var \Mageplaza\HelloWorld\Block\Display $block
+ */
+
+$weather = $block->displayCurrentWeather();
+?>
+<p>City: <strong><?= $weather['city'] ?></strong></p>
+<p>Temperature(C): <strong><?= $weather['temp'] ?><sup>o</sup>C</strong></p>
+<p>Humidity: <strong><?= $weather['humidity'] ?>%</strong></p>
+<p>Pressure: <strong><?= $weather['pressure'] ?> hPa</strong></p>
